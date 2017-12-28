@@ -12,6 +12,13 @@ const store = () => new Vuex.Store({
   state: {
     posts: []
   },
+  getters: {
+    posts: state => {
+      return state.posts.map((post) => {
+        return post
+      }).reverse()
+    }
+  },
   mutations: {
     ...firebaseMutations
   },
@@ -19,9 +26,9 @@ const store = () => new Vuex.Store({
     INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
       bindFirebaseRef('posts', postsRef)
     }),
-    ADD_POST: firebaseAction((ctx, { email, body }) => {
+    ADD_POST: firebaseAction((ctx, { name, body }) => {
       postsRef.push({
-        from: email,
+        name,
         body
       })
     }),
