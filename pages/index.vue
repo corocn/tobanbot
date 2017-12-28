@@ -13,12 +13,14 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
       <button @click="$store.dispatch('ADD_POST', { email: 'sample@sample.com', body: 'HELLO WORLD'})">ADD</button>
+      <button class="button is-primary" @click="callAuth">Signin with Google</button>
     </div>
   </section>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
@@ -32,6 +34,9 @@ export default {
   async mounted () {
     await this.$store.dispatch('INIT_POSTS')
     this.isLoaded = true
+  },
+  methods: {
+    ...mapActions(['callAuth'])
   }
 }
 </script>

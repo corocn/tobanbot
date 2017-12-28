@@ -4,6 +4,7 @@ import firebase from '~/plugins/firebase'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 const db = firebase.database()
 const postsRef = db.ref('/posts')
+const provider = new firebase.auth.GoogleAuthProvider()
 
 Vue.use(Vuex)
 
@@ -23,7 +24,10 @@ const store = () => new Vuex.Store({
         from: email,
         body
       })
-    })
+    }),
+    callAuth () {
+      firebase.auth().signInWithRedirect(provider)
+    }
   }
 })
 
