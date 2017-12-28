@@ -12,7 +12,7 @@
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
-      <button @click="$store.dispatch('INIT_POSTS')">{{ $store.state.counter }}</button>
+      <button @click="$store.dispatch('ADD_POST', { email: 'sample@sample.com', body: 'HELLO WORLD'})">ADD</button>
     </div>
   </section>
 </template>
@@ -21,8 +21,17 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+  data () {
+    return {
+      isLoaded: false
+    }
+  },
   components: {
     Logo
+  },
+  async mounted () {
+    await this.$store.dispatch('INIT_POSTS')
+    this.isLoaded = true
   }
 }
 </script>

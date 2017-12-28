@@ -17,6 +17,12 @@ const store = () => new Vuex.Store({
   actions: {
     INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
       bindFirebaseRef('posts', postsRef)
+    }),
+    ADD_POST: firebaseAction((ctx, { email, body }) => {
+      postsRef.push({
+        from: email,
+        body
+      })
     })
   }
 })
