@@ -1,7 +1,6 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
       <h1 class="title">
         tobanbot
       </h1>
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import auth from '~/plugins/auth'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -31,9 +29,7 @@ export default {
       isLoaded: false
     }
   },
-  components: {
-    Logo
-  },
+  components: {},
   async mounted () {
     let user
     if (!this.user) user = await auth()
