@@ -5,10 +5,16 @@
       <h1 class="title">
         tobanbot
       </h1>
-      <button @click="$store.dispatch('ADD_POST', { name: '@corocn', body: '週番'})">ADD</button>
       <button class="button is-primary" @click="callAuth">Signin with Google</button>
-      <div v-for="post in posts">
-        {{ post.name }} {{ post.body }}
+
+      <div v-if="user">
+        <button @click="$store.dispatch('ADD_POST', { name: user.displayName, icon: user.photoURL, body: Date() })">ADD</button>
+        <button @click="$store.dispatch('CLEAR_POSTS')">CLEAR ALL</button>
+
+        <div v-for="post in posts">
+          <img :src="post.icon" width="50"/>
+          {{ post.name }} : {{ post.body }}
+        </div>
       </div>
     </div>
   </section>
@@ -16,6 +22,7 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import auth from '~/plugins/auth'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -28,6 +35,9 @@ export default {
     Logo
   },
   async mounted () {
+    let user
+    if (!this.user) user = await auth()
+    await this.$store.dispatch('SET_CREDENTIAL', { user: user || null })
     await this.$store.dispatch('INIT_POSTS')
     this.isLoaded = true
   },
@@ -35,7 +45,7 @@ export default {
     ...mapActions(['callAuth'])
   },
   computed: {
-    ...mapGetters(['posts'])
+    ...mapGetters(['user', 'posts'])
   }
 }
 </script>
