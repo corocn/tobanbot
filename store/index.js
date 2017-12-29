@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import firebase from '~/plugins/firebase'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 const db = firebase.database()
-const postsRef = db.ref('/posts')
+const assignationsRef = db.ref('/assignations')
 const provider = new firebase.auth.GoogleAuthProvider()
 
 Vue.use(Vuex)
@@ -11,12 +11,12 @@ Vue.use(Vuex)
 const store = () => new Vuex.Store({
   state: {
     user: null,
-    posts: []
+    assignations: []
   },
   getters: {
     user: state => state.user,
-    posts: state => {
-      return state.posts.map((p) => { return p }).reverse()
+    assignations: state => {
+      return state.assignations.map((p) => { return p }).reverse()
     }
   },
   mutations: {
@@ -31,20 +31,21 @@ const store = () => new Vuex.Store({
       commit('setCredential', { user })
     },
     INIT_USERS: firebaseAction(({ bindFirebaseRef }) => {
-      bindFirebaseRef('users', postsRef)
+      bindFirebaseRef('users', assignationsRef)
     }),
-    INIT_POSTS: firebaseAction(({ bindFirebaseRef }) => {
-      bindFirebaseRef('posts', postsRef)
+    INIT_ASSIGNATION: firebaseAction(({ bindFirebaseRef }) => {
+      bindFirebaseRef('assignations', assignationsRef)
     }),
-    ADD_POST: firebaseAction((ctx, { name, icon, body }) => {
-      postsRef.push({
+    ADD_ASSIGNATION: firebaseAction((ctx, { datetime, name, slackName, icon }) => {
+      assignationsRef.push({
+        datetime,
         name,
-        icon,
-        body
+        slackName,
+        icon
       })
     }),
-    CLEAR_POSTS: firebaseAction((ctx) => {
-      postsRef.remove()
+    CLEAR_ASSIGNATION: firebaseAction((ctx) => {
+      assignationsRef.remove()
     }),
     callAuth () {
       firebase.auth().signInWithRedirect(provider)

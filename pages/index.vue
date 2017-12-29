@@ -7,12 +7,20 @@
       <button class="button is-primary" @click="callAuth">Signin with Google</button>
 
       <div v-if="user">
-        <button @click="$store.dispatch('ADD_POST', { name: user.displayName, icon: user.photoURL, body: Date() })">ADD</button>
-        <button @click="$store.dispatch('CLEAR_POSTS')">CLEAR ALL</button>
 
-        <div v-for="post in posts">
-          <img :src="post.icon" width="50"/>
-          {{ post.name }} : {{ post.body }}
+        <div>
+          <button @click="$store.dispatch('ADD_ASSIGNATION', {
+            datetime: datetime,
+            name: user.displayName,
+            icon: user.photoURL,
+            slackName: '@corocn' })">ADD</button>
+          <button @click="$store.dispatch('CLEAR_ASSIGNATION')">CLEAR ALL</button>
+          <input type="text" v-model="datetime" />
+        </div>
+
+        <div v-for="a in assignations">
+          <img :src="a.icon" width="50"/>
+          {{ a.name }} : {{ a.slackName }} : {{ a.datetime }}
         </div>
       </div>
     </div>
@@ -34,14 +42,14 @@ export default {
     let user
     if (!this.user) user = await auth()
     await this.$store.dispatch('SET_CREDENTIAL', { user: user || null })
-    await this.$store.dispatch('INIT_POSTS')
+    await this.$store.dispatch('INIT_ASSIGNATION')
     this.isLoaded = true
   },
   methods: {
     ...mapActions(['callAuth'])
   },
   computed: {
-    ...mapGetters(['user', 'posts'])
+    ...mapGetters(['user', 'assignations'])
   }
 }
 </script>
