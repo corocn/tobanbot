@@ -8,11 +8,11 @@
           </h1>
 
           <div v-if="isLoaded">
-            <div v-if="user">
-              You have already logged in as {{ this.user.email }}
+            <div v-if="!user">
+              <button class="signin button is-primary" @click="callAuth">Signin with Google</button>
             </div>
             <div v-else>
-              <button class="signin button is-primary" @click="callAuth">Signin with Google</button>
+              Welcome
             </div>
           </div>
           <div v-else>
@@ -35,11 +35,10 @@
       }
     },
     components: {},
-    async mounted () {
+    async created () {
       let user
       if (!this.user) user = await auth()
       await this.$store.dispatch('SET_CREDENTIAL', {user: user || null})
-      await this.$store.dispatch('INIT_ASSIGNATION')
       this.isLoaded = true
     },
     methods: {
@@ -51,7 +50,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .title {
     display: block;
     font-weight: 300;
