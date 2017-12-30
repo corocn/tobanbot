@@ -13,10 +13,10 @@ export default {
     }
   },
   actions: {
-    INIT_MEMBERS: firebaseAction(({ bindFirebaseRef }) => {
+    BIND_MEMBERS: firebaseAction(({ bindFirebaseRef }) => {
       bindFirebaseRef('members', membersRef)
     }),
-    ADD_MEMBER: firebaseAction((ctx, { name, email }) => {
+    CREATE_MEMBER: firebaseAction((ctx, { name, email }) => {
       membersRef.push({ name, email })
     }),
     UPDATE_MEMBER: firebaseAction((ctx, member) => {

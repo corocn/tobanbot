@@ -100,7 +100,7 @@
     },
     components: {},
     created () {
-      this.$store.dispatch('INIT_MEMBERS')
+      this.$store.dispatch('BIND_MEMBERS')
     },
     methods: {
       ...mapActions(['callAuth']),
@@ -108,7 +108,7 @@
         this.isAdding = !this.isAdding
       },
       addMember () {
-        this.$store.dispatch('ADD_MEMBER', { name: this.adding.name, email: this.adding.email })
+        this.$store.dispatch('CREATE_MEMBER', { name: this.adding.name, email: this.adding.email })
         this.adding.name = ''
         this.adding.email = ''
       },
