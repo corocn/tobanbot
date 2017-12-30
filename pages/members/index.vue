@@ -12,17 +12,37 @@
             <th>Name</th>
             <th>Email</th>
             <th>Key</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="member in members">
-            <td>{{ member.name }}</td>
-            <td>{{ member.email }}</td>
+          <tr v-for="member in editableMembers">
+            <td v-if="member.isEditing">
+              <input class="input" type="text" v-model="editing.name">
+            </td>
+            <td v-else>{{ member.name }}</td>
+
+            <td v-if="member.isEditing">
+              <input class="input" type="text" v-model="editing.email">
+            </td>
+            <td v-else>{{ member.email }}</td>
+
             <td>{{ member['.key'] }}</td>
+
+            <td>
+              <button class="button is-link" v-if="member.isEditing"
+                      @click="updateMember(editing)">
+                UPDATE
+              </button>
+              <button class="button is-primary" v-else
+                      @click="toggleEdit(member)">
+                EDIT
+              </button>
+            </td>
             <td>
               <button class="button is-danger"
-                      @click="remove(member['.key'])">
+                      @click="removeMember(member['.key'])">
                 DEL
               </button>
             </td>
@@ -39,7 +59,7 @@
         <div class="field">
           <label class="label">Username</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="@slackname" v-model="name">
+            <input class="input" type="text" placeholder="@slackname" v-model="add.name">
             <span class="icon is-small is-left">
               <i class="fa fa-user"></i>
             </span>
@@ -49,7 +69,7 @@
         <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="hoge@hoge" v-model="email">
+            <input class="input" type="email" placeholder="hoge@hoge" v-model="add.email">
             <span class="icon is-small is-left">
               <i class="fa fa-envelope"></i>
             </span>
@@ -58,8 +78,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link"
-                    @click="$store.dispatch('ADD_MEMBER', { name: name, email: email })">
+            <button class="button is-link" @click="addMember">
               Submit</button>
           </div>
         </div>
@@ -74,8 +93,11 @@
   export default {
     data () {
       return {
-        name: '',
-        email: '',
+        add: {
+          name: '',
+          email: ''
+        },
+        editing: {},
         adding: false
       }
     },
@@ -88,14 +110,36 @@
       toggleAddForm () {
         this.adding = !this.adding
       },
-      remove (key) {
+      addMember () {
+        this.$store.dispatch('ADD_MEMBER', { name: this.add.name, email: this.add.email })
+        this.add.name = ''
+        this.add.email = ''
+      },
+      removeMember (key) {
         if (confirm('Do you really want to delete?')) {
           this.$store.dispatch('DELETE_MEMBER', key)
         }
+      },
+      toggleEdit (member) {
+        this.editing = Object.assign({}, member)
+      },
+      updateMember (member) {
+        this.$store.dispatch('UPDATE_MEMBER', member)
+        this.editing = false
       }
     },
     computed: {
-      ...mapGetters(['user', 'members'])
+      ...mapGetters(['user', 'members']),
+      editableMembers () {
+        return this.members.map((member) => {
+          member = Object.assign({}, member)
+          member.isEditing = false
+          if (this.editing && member['.key'] === this.editing['.key']) {
+            member.isEditing = true
+          }
+          return member
+        })
+      }
     }
   }
 </script>
