@@ -20,7 +20,7 @@
         <nuxt-link class="navbar-item" to="/members">
           Members
         </nuxt-link>
-        <nuxt-link class="navbar-item" to="/">
+        <nuxt-link class="navbar-item" to="/tasks">
           Tasks
         </nuxt-link>
       </div>

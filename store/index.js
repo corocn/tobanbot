@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import firebase from '~/plugins/firebase'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import membersModule from '~/store/members'
+import tasksModule from '~/store/tasks'
 const db = firebase.database()
 const assignationsRef = db.ref('/assignations')
 const provider = new firebase.auth.GoogleAuthProvider()
@@ -13,7 +14,8 @@ console.log(firebaseMutations)
 
 const store = () => new Vuex.Store({
   modules: {
-    members: membersModule
+    members: membersModule,
+    tasks: tasksModule
   },
   state: {
     user: null,
