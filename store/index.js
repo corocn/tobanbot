@@ -2,26 +2,27 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from '~/plugins/firebase'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
+import membersModule from '~/store/members'
 const db = firebase.database()
 const assignationsRef = db.ref('/assignations')
-const membersRef = db.ref('/members')
 const provider = new firebase.auth.GoogleAuthProvider()
 
 Vue.use(Vuex)
 
+console.log(firebaseMutations)
+
 const store = () => new Vuex.Store({
+  modules: {
+    members: membersModule
+  },
   state: {
     user: null,
-    members: [],
     assignations: []
   },
   getters: {
     user: state => state.user,
     assignations: state => {
       return state.assignations.map((p) => { return p }).reverse()
-    },
-    members: state => {
-      return state.members.map((p) => { return p })
     }
   },
   mutations: {
@@ -48,22 +49,6 @@ const store = () => new Vuex.Store({
     }),
     CLEAR_ASSIGNATION: firebaseAction((ctx) => {
       assignationsRef.remove()
-    }),
-    INIT_MEMBERS: firebaseAction(({ bindFirebaseRef }) => {
-      bindFirebaseRef('members', membersRef)
-    }),
-    ADD_MEMBER: firebaseAction((ctx, { name, email }) => {
-      membersRef.push({ name, email })
-    }),
-    UPDATE_MEMBER: firebaseAction((ctx, member) => {
-      let key = member['.key']
-      membersRef.child(key).update({
-        name: member.name,
-        email: member.email
-      })
-    }),
-    DELETE_MEMBER: firebaseAction((ctx, key) => {
-      membersRef.child(key).remove()
     }),
     callAuth () {
       firebase.auth().signInWithRedirect(provider)
