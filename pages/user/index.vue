@@ -15,9 +15,6 @@
 
   export default {
     components: {},
-    created () {
-      this.$store.dispatch('INIT_MEMBERS')
-    },
     methods: {
       ...mapActions(['signOut'])
     },
@@ -28,4 +25,7 @@
 </script>
 
 <style scoped>
+  .container {
+    margin-top: 20px;
+  }
 </style>
