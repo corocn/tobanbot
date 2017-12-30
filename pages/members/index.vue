@@ -30,17 +30,17 @@
             <td>
               <button class="button is-link" v-if="member.isEditing"
                       @click="updateMember(editing)">
-                UPDATE
+                <i class="fa fa-check"></i>
               </button>
               <button class="button is-primary" v-else
                       @click="toggleEdit(member)">
-                EDIT
+                <i class="fa fa-edit"></i>
               </button>
             </td>
             <td>
               <button class="button is-danger"
                       @click="removeMember(member['.key'])">
-                DEL
+                <i class="fa fa-trash"></i>
               </button>
             </td>
           </tr>
