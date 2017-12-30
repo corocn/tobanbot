@@ -4,6 +4,7 @@
       <p class="card-header-title">
         {{ task.title }}
       </p>
+      <a class="delete" @click="deleteTask(task['.key'])"></a>
     </header>
     <div class="card-content">
       <div class="content">
@@ -17,7 +18,14 @@
 
 <script>
   export default {
-    props: ['task']
+    props: ['task'],
+    methods: {
+      deleteTask (key) {
+        if (confirm('Do you really want to delete?')) {
+          this.$store.dispatch('DELETE_TASK', key)
+        }
+      }
+    }
   }
 </script>
 

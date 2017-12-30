@@ -38,11 +38,6 @@
       ...mapActions(['callAuth']),
       createTask () {
         this.$store.dispatch('CREATE_TASK', { title: 'サンプル', description: '説明' })
-      },
-      deleteTask (key) {
-        if (confirm('Do you really want to delete?')) {
-          this.$store.dispatch('DELETE_TASK', key)
-        }
       }
     },
     computed: {
