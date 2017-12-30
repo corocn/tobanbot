@@ -55,11 +55,11 @@
         <button class="button is-primary" @click="toggleAddForm">Show Add Form</button>
       </div>
 
-      <div class="container" v-if="adding">
+      <div class="container" v-if="isAdding">
         <div class="field">
-          <label class="label">Username</label>
+          <label class="label">Name</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="@slackname" v-model="add.name">
+            <input class="input" type="text" placeholder="@slackname" v-model="adding.name">
             <span class="icon is-small is-left">
               <i class="fa fa-user"></i>
             </span>
@@ -69,7 +69,7 @@
         <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="hoge@hoge" v-model="add.email">
+            <input class="input" type="email" placeholder="hoge@hoge" v-model="adding.email">
             <span class="icon is-small is-left">
               <i class="fa fa-envelope"></i>
             </span>
@@ -93,12 +93,12 @@
   export default {
     data () {
       return {
-        add: {
+        adding: {
           name: '',
           email: ''
         },
         editing: {},
-        adding: false
+        isAdding: false
       }
     },
     components: {},
@@ -108,12 +108,12 @@
     methods: {
       ...mapActions(['callAuth']),
       toggleAddForm () {
-        this.adding = !this.adding
+        this.isAdding = !this.isAdding
       },
       addMember () {
-        this.$store.dispatch('ADD_MEMBER', { name: this.add.name, email: this.add.email })
-        this.add.name = ''
-        this.add.email = ''
+        this.$store.dispatch('ADD_MEMBER', { name: this.adding.name, email: this.adding.email })
+        this.adding.name = ''
+        this.adding.email = ''
       },
       removeMember (key) {
         if (confirm('Do you really want to delete?')) {
