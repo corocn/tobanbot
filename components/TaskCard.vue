@@ -2,7 +2,7 @@
   <div class="task-card card">
     <header class="card-header">
       <p class="card-header-title">
-        {{ task.title }}
+        <nuxt-link :to="`/tasks/${task['.key']}`">{{ task.title }}</nuxt-link>
       </p>
       <a class="delete" @click="deleteTask(task['.key'])"></a>
     </header>
