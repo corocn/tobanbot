@@ -11,7 +11,6 @@
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Key</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -27,8 +26,6 @@
               <input class="input" type="text" v-model="editing.email">
             </td>
             <td v-else>{{ member.email }}</td>
-
-            <td>{{ member['.key'] }}</td>
 
             <td>
               <button class="button is-link" v-if="member.isEditing"
