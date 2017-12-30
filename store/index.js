@@ -67,6 +67,11 @@ const store = () => new Vuex.Store({
     }),
     callAuth () {
       firebase.auth().signInWithRedirect(provider)
+    },
+    signOut () {
+      firebase.auth().signOut()
+      this.app.router.push('/')
+      location.reload()
     }
   }
 })

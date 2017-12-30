@@ -17,9 +17,6 @@
 
 
       <div class="navbar-start" v-if="user">
-        <nuxt-link class="navbar-item" to="/">
-          User
-        </nuxt-link>
         <nuxt-link class="navbar-item" to="/members">
           Members
         </nuxt-link>
