@@ -5,15 +5,17 @@
         Tasks
       </h1>
 
-      <div v-for="task in tasks">
-        {{task.title}} {{task.description}}
+      <div class="columns is-multiline">
+        <div class="column is-one-third" v-for="task in tasks">
+          <task-card :task="task"></task-card>
+        </div>
       </div>
 
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link" @click="createTask">
-              Create</button>
-          </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" @click="createTask">
+            Create
+          </button>
         </div>
       </div>
     </div>
@@ -21,13 +23,14 @@
 </template>
 
 <script>
+  import TaskCard from '~/components/TaskCard'
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
     data () {
       return {}
     },
-    components: {},
+    components: { TaskCard },
     created () {
       this.$store.dispatch('BIND_TASKS')
     },
