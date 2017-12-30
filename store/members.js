@@ -1,33 +1,33 @@
 import firebase from '~/plugins/firebase'
 import { firebaseAction } from 'vuexfire'
 const db = firebase.database()
-const membersRef = db.ref('/members')
+const ref = db.ref('/members')
 
 export default {
   state: {
-    members: []
+    lists: []
   },
   getters: {
     members: state => {
-      return state.members.map((p) => { return p })
+      return state.lists.map((p) => { return p })
     }
   },
   actions: {
     BIND_MEMBERS: firebaseAction(({ bindFirebaseRef }) => {
-      bindFirebaseRef('members', membersRef)
+      bindFirebaseRef('lists', ref)
     }),
     CREATE_MEMBER: firebaseAction((ctx, { name, email }) => {
-      membersRef.push({ name, email })
+      ref.push({ name, email })
     }),
     UPDATE_MEMBER: firebaseAction((ctx, member) => {
       let key = member['.key']
-      membersRef.child(key).update({
+      ref.child(key).update({
         name: member.name,
         email: member.email
       })
     }),
     DELETE_MEMBER: firebaseAction((ctx, key) => {
-      membersRef.child(key).remove()
+      ref.child(key).remove()
     })
   }
 }
