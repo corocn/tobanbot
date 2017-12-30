@@ -9,13 +9,8 @@
         <div class="column is-one-third" v-for="task in tasks">
           <task-card :task="task"></task-card>
         </div>
-      </div>
-
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-link" @click="createTask">
-            Create
-          </button>
+        <div class="column is-one-third">
+          <new-task-card></new-task-card>
         </div>
       </div>
     </div>
@@ -24,13 +19,14 @@
 
 <script>
   import TaskCard from '~/components/TaskCard'
+  import NewTaskCard from '~/components/NewTaskCard'
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
     data () {
       return {}
     },
-    components: { TaskCard },
+    components: { TaskCard, NewTaskCard },
     created () {
       this.$store.dispatch('BIND_TASKS')
     },
