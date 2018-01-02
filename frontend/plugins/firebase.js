@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from 'frontend/plugins/firebase'
 import config from '~/.env.firebase.js'
 
 if (!firebase.apps.length) {
