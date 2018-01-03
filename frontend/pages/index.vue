@@ -35,6 +35,7 @@
     },
     components: {},
     async created () {
+      await this.$store.dispatch('SET_CREDENTIAL')
       this.isLoaded = true
     },
     methods: {

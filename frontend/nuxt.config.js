@@ -1,8 +1,9 @@
-module.exports = {
+const config = {
   mode: 'spa',
-  /*
-  ** Headers of the page
-  */
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
+  ],
   head: {
     title: 'tobanbot',
     meta: [
@@ -16,13 +17,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css' }
     ]
   },
-  /*
-  ** Customize the progress bar color
-  */
   loading: { color: '#3B8070' },
-  /*
-  ** Build configuration
-  */
   build: {
     /*
     ** Run ESLint on save
@@ -43,5 +38,19 @@ module.exports = {
   },
   generate: {
     dir: '../public'
+  },
+  axios: {},
+  proxy: {}
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  config.axios = {
+    debug: true
+  }
+
+  config.proxy = {
+    '/api' : 'http://localhost:3000'
   }
 }
+
+module.exports = config

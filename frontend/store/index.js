@@ -28,10 +28,13 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
-    // async SET_CREDENTIAL ({commit}, { user }) {
-    //   if (!user) return
-    //   commit('setCredential', { user })
-    // },
+    async SET_CREDENTIAL () {
+      const user = await this.$axios.$get('/v1/user', {
+        withCredentials: true
+      })
+      console.log(user)
+      // commit('setCredential', { user })
+    }
     // INIT_ASSIGNATION: firebaseAction(({ bindFirebaseRef }) => {
     //   bindFirebaseRef('assignations', assignationsRef)
     // }),
