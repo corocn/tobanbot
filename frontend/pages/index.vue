@@ -25,7 +25,6 @@
 </template>
 
 <script>
-  import auth from '~/plugins/auth'
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
@@ -36,9 +35,6 @@
     },
     components: {},
     async created () {
-      let user
-      if (!this.user) user = await auth()
-      await this.$store.dispatch('SET_CREDENTIAL', {user: user || null})
       this.isLoaded = true
     },
     methods: {
