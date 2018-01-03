@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class SamplesController < ApplicationController
-      before_action :set_sample, only: [:show, :update, :destroy]
+      before_action :set_sample, only: %i[show update destroy]
 
       # GET /samples
       def index
@@ -41,6 +43,7 @@ module Api
       end
 
       private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_sample
         @sample = Sample.find(params[:id])

@@ -1,0 +1,9 @@
+                        Prefix Verb     URI Pattern                           Controller#Action
+user_google_omniauth_authorize GET|POST /users/auth/google(.:format)          api/v1/omniauth_callbacks#passthru
+ user_google_omniauth_callback GET|POST /users/auth/google/callback(.:format) api/v1/omniauth_callbacks#google
+                api_v1_samples GET      /api/v1/samples(.:format)             api/v1/samples#index
+                               POST     /api/v1/samples(.:format)             api/v1/samples#create
+                 api_v1_sample GET      /api/v1/samples/:id(.:format)         api/v1/samples#show
+                               PATCH    /api/v1/samples/:id(.:format)         api/v1/samples#update
+                               PUT      /api/v1/samples/:id(.:format)         api/v1/samples#update
+                               DELETE   /api/v1/samples/:id(.:format)         api/v1/samples#destroy
