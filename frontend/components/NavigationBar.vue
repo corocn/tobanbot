@@ -31,7 +31,9 @@
 
             <p class="control" v-if="user">
               <nuxt-link class="button" to="/user">
-                <img :src="user.photoURL" />
+                <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
               </nuxt-link>
             </p>
 
