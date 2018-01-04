@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-
   Bundler.require(*Rails.groups)
   Dotenv::Railtie.load
 

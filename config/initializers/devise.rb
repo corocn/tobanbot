@@ -258,7 +258,7 @@ Devise.setup do |config|
                   ENV['GOOGLE_APP_ID'],
                   ENV['GOOGLE_APP_SECRET'],
                   name: :google,
-                  scope: %w(email)
+                  scope: %w[email]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -1,28 +1,39 @@
 # frozen_string_literal: true
 
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def google
-    auth = request.env['omniauth.auth']
+class Users::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksController
 
-    # FIXME: 指定ドメイン以外の場合
-    if invalid_domain?(auth)
-      return head :not_found
+  # override
+  def omniauth_success
+    get_resource_from_auth_hash
+    create_token_info
+    set_token_on_resource
+    create_auth_params
+
+    if resource_class.devise_modules.include?(:confirmable)
+      # don't send confirmation email!!!
+      @resource.skip_confirmation!
     end
 
-    @user = User.find_for_google(auth)
-    if @user.persisted?
-      # flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-      sign_in_and_redirect @user, event: :authentication
+    if invalid_email?(@resource.email)
+      return render json: { message: 'failed to login' }, status: 500
+    end
+
+    sign_in(:user, @resource, store: false, bypass: false)
+
+    if @resource.save!
+      # update_token_authをつけることでレスポンスヘッダーに認証情報を付与できる。
+      update_auth_header
+      yield @resource if block_given?
+      render json: @resource, status: :ok
     else
-      session['devise.google_data'] = auth
-      redirect_to new_user_registration_url
+      render json: { message: 'failed to login' }, status: 500
     end
   end
 
   private
 
-  def invalid_domain?(auth)
+  def invalid_email?(email)
     return false unless ENV['EMAIL_RESTRICTION']
-    !(auth.info.email =~ Regexp.new(ENV['EMAIL_RESTRICTION']))
+    email !~ Regexp.new(ENV['EMAIL_RESTRICTION'])
   end
 end
