@@ -1,9 +1,12 @@
                         Prefix Verb     URI Pattern                           Controller#Action
-user_google_omniauth_authorize GET|POST /users/auth/google(.:format)          api/v1/omniauth_callbacks#passthru
- user_google_omniauth_callback GET|POST /users/auth/google/callback(.:format) api/v1/omniauth_callbacks#google
-                api_v1_samples GET      /api/v1/samples(.:format)             api/v1/samples#index
-                               POST     /api/v1/samples(.:format)             api/v1/samples#create
-                 api_v1_sample GET      /api/v1/samples/:id(.:format)         api/v1/samples#show
-                               PATCH    /api/v1/samples/:id(.:format)         api/v1/samples#update
-                               PUT      /api/v1/samples/:id(.:format)         api/v1/samples#update
-                               DELETE   /api/v1/samples/:id(.:format)         api/v1/samples#destroy
+              new_user_session GET      /users/sign_in(.:format)              devise/sessions#new
+                  user_session POST     /users/sign_in(.:format)              devise/sessions#create
+          destroy_user_session GET      /users/sign_out(.:format)             devise/sessions#destroy
+user_google_omniauth_authorize GET|POST /users/auth/google(.:format)          users/omniauth_callbacks#passthru
+ user_google_omniauth_callback GET|POST /users/auth/google/callback(.:format) users/omniauth_callbacks#google
+             api_v1_user_index GET      /api/v1/user(.:format)                api/v1/user#index
+                               POST     /api/v1/user(.:format)                api/v1/user#create
+                   api_v1_user GET      /api/v1/user/:id(.:format)            api/v1/user#show
+                               PATCH    /api/v1/user/:id(.:format)            api/v1/user#update
+                               PUT      /api/v1/user/:id(.:format)            api/v1/user#update
+                               DELETE   /api/v1/user/:id(.:format)            api/v1/user#destroy

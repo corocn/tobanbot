@@ -5,6 +5,9 @@
         User
       </h1>
 
+      <span> {{ user.id }} : {{ user.email }}</span>
+
+      <button class="signout button is-primary" @click="signIn">Sign In</button>
       <button class="signout button is-primary" @click="signOut">Sign Out</button>
     </div>
   </section>
@@ -16,7 +19,7 @@
   export default {
     components: {},
     methods: {
-      ...mapActions(['signOut'])
+      ...mapActions(['signIn', 'signOut'])
     },
     computed: {
       ...mapGetters(['user'])

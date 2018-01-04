@@ -4,7 +4,10 @@ module Api
   module V1
     class UserController < ApplicationController
       def index
-        @user = current_user
+        @user = {
+            id: current_user.id,
+            email: current_user.email
+        }
 
         render json: @user
       end

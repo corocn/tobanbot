@@ -25,5 +25,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     return false unless ENV['EMAIL_RESTRICTION']
     !(auth.info.email =~ Regexp.new(ENV['EMAIL_RESTRICTION']))
   end
-
 end

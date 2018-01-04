@@ -23,12 +23,10 @@ module Tobanbot
     config.load_defaults 5.1
 
     config.api_only = true
-    config.session_store :cookie_store, key: '_interslice_session'
-    config.middleware.use ActionDispatch::Cookies # Required for all session management
-    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
-
-    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'localhost:3333'
         resource '*', :headers => :any, :methods => [:get, :post, :options, :patch, :delete]

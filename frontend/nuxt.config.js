@@ -44,10 +44,7 @@ const config = {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  config.axios = {
-    debug: true
-  }
-
+  config.axios = {}
   config.proxy = {
     '/api' : 'http://localhost:3000'
   }

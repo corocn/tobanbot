@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import membersModule from '~/store/members'
 import tasksModule from '~/store/tasks'
 import taskModule from '~/store/task'
+import sessionPath from '~/plugins/session_path'
 
 Vue.use(Vuex)
 
@@ -28,12 +29,15 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
-    async SET_CREDENTIAL () {
-      const user = await this.$axios.$get('/v1/user', {
-        withCredentials: true
-      })
-      console.log(user)
-      // commit('setCredential', { user })
+    async SET_CREDENTIAL ({ commit }) {
+      const user = await this.$axios.$get('/v1/user')
+      commit('setCredential', { user })
+    },
+    signIn () {
+      window.location.href = sessionPath.signIn
+    },
+    signOut () {
+      window.location.href = sessionPath.signOut
     }
     // INIT_ASSIGNATION: firebaseAction(({ bindFirebaseRef }) => {
     //   bindFirebaseRef('assignations', assignationsRef)
