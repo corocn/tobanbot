@@ -58,7 +58,7 @@
   export default {
     components: {},
     async created () {
-      this.$store.dispatch('SET_CREDENTIAL')
+      this.$store.dispatch('RELOAD_AUTH')
     },
     computed: {
       ...mapGetters(['user'])

@@ -7,16 +7,26 @@
             tobanbot
           </h1>
 
-          <div v-if="isLoaded">
-            <div v-if="!user">
-              <button class="signin button is-primary" @click="callAuth">Signin with Google</button>
-            </div>
-            <div v-else>
-              Welcome
-            </div>
-          </div>
-          <div v-else>
-            Loading...
+          <div>
+            <button
+              class="button is-primary"
+              v-if="!authenticated"
+              @click="login()">
+              <span class="icon">
+                <i class="fa fa-sign-in"></i>
+              </span>
+              <span>Login</span>
+            </button>
+
+            <button
+              class="button is-primary"
+              v-if="authenticated"
+              @click="logout()">
+              <span class="icon">
+                <i class="fa fa-sign-out"></i>
+              </span>
+              <span>Logout</span>
+            </button>
           </div>
         </div>
       </div>
@@ -28,21 +38,12 @@
   import {mapGetters, mapActions} from 'vuex'
 
   export default {
-    data () {
-      return {
-        isLoaded: false
-      }
-    },
     components: {},
-    async created () {
-      await this.$store.dispatch('SET_CREDENTIAL')
-      this.isLoaded = true
-    },
     methods: {
-      ...mapActions(['callAuth'])
+      ...mapActions(['login', 'logout'])
     },
     computed: {
-      ...mapGetters(['user', 'assignations'])
+      ...mapGetters(['user', 'authenticated'])
     }
   }
 </script>

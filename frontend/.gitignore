@@ -11,5 +11,5 @@ npm-debug.log
 dist
 
 # Environment
-.env.firebase.js
+auth0.config.js
 

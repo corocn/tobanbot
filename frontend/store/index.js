@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import membersModule from '~/store/members'
 import tasksModule from '~/store/tasks'
 import taskModule from '~/store/task'
-import sessionPath from '~/plugins/session_path'
+
+import AuthService from '~/utils/AuthService'
+const auth = new AuthService()
 
 Vue.use(Vuex)
 
@@ -15,29 +17,37 @@ const store = () => new Vuex.Store({
   },
   state: {
     user: null,
-    assignations: []
+    authenticated: false
   },
   getters: {
     user: state => state.user,
-    assignations: state => {
-      return state.assignations.map((p) => { return p }).reverse()
-    }
+    authenticated: state => state.authenticated
   },
   mutations: {
     setCredential (state, { user }) {
       state.user = user
+    },
+    setAuthentication (state, authenticated) {
+      state.authenticated = authenticated
     }
   },
   actions: {
+    RELOAD_AUTH ({ commit }) {
+      commit('setAuthentication', auth.isAuthenticated())
+    },
+    HANDLE_CALLBACK () {
+      auth.handleAuthentication(this.app.router)
+    },
+    login () {
+      auth.login()
+    },
+    logout ({ dispatch }) {
+      auth.logout()
+      dispatch('RELOAD_AUTH')
+    },
     async SET_CREDENTIAL ({ commit }) {
       const user = await this.$axios.$get('/v1/user')
       commit('setCredential', { user })
-    },
-    signIn () {
-      window.location.href = sessionPath.signIn
-    },
-    signOut () {
-      window.location.href = sessionPath.signOut
     }
     // INIT_ASSIGNATION: firebaseAction(({ bindFirebaseRef }) => {
     //   bindFirebaseRef('assignations', assignationsRef)

@@ -5,9 +5,9 @@
         User
       </h1>
 
-      <span> {{ user.id }} : {{ user.email }}</span>
-
+      <br/>
       <button class="signout button is-primary" @click="signIn">Sign In</button>
+      <br/>
       <button class="signout button is-primary" @click="signOut">Sign Out</button>
     </div>
   </section>
