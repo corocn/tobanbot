@@ -7,6 +7,7 @@ export default class AuthService {
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.idToken = this.idToken.bind(this)
 
     this.auth0 = new auth0.WebAuth(config)
   }
@@ -56,5 +57,13 @@ export default class AuthService {
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     return new Date().getTime() < expiresAt
+  }
+
+  idToken () {
+    if (this.isAuthenticated()) {
+      return localStorage.getItem('id_token')
+    } else {
+      return null
+    }
   }
 }

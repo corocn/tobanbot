@@ -33,6 +33,7 @@ const store = () => new Vuex.Store({
   },
   actions: {
     RELOAD_AUTH ({ commit }) {
+      this.$axios.setHeader('Authorization', 'Bearer ' + auth.idToken())
       commit('setAuthentication', auth.isAuthenticated())
     },
     HANDLE_CALLBACK () {
@@ -44,6 +45,10 @@ const store = () => new Vuex.Store({
     logout ({ dispatch }) {
       auth.logout()
       dispatch('RELOAD_AUTH')
+    },
+    async ping () {
+      const user = await this.$axios.$get('/v1/user')
+      console.log(user)
     },
     async SET_CREDENTIAL ({ commit }) {
       const user = await this.$axios.$get('/v1/user')

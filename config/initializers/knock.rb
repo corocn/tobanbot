@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'net/http'
 
 Knock.setup do |config|
-
   ## Expiration claim
   ## ----------------
   ##
@@ -10,7 +11,6 @@ Knock.setup do |config|
   ##
   ## Default:
   # config.token_lifetime = 1.day
-
 
   ## Audience claim
   ## --------------
@@ -67,4 +67,3 @@ Knock.setup do |config|
   ## Default:
   # config.not_found_exception_class_name = 'ActiveRecord::RecordNotFound'
 end
-

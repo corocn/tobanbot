@@ -8,8 +8,9 @@ module Api
 
       def index
         @user = {
-          id: 'test_id',
-          email: 'test_email'
+          id: current_user.id,
+          name: current_user.name,
+          email: current_user.email
         }
 
         render json: @user

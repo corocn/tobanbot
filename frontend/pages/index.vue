@@ -27,6 +27,8 @@
               </span>
               <span>Logout</span>
             </button>
+
+            <button class="signout button is-danger" @click="ping">Ping</button>
           </div>
         </div>
       </div>
@@ -40,7 +42,7 @@
   export default {
     components: {},
     methods: {
-      ...mapActions(['login', 'logout'])
+      ...mapActions(['login', 'logout', 'ping'])
     },
     computed: {
       ...mapGetters(['user', 'authenticated'])
