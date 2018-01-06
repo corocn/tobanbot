@@ -19,7 +19,7 @@
             </nuxt-link>
 
             <nuxt-link
-              class="button is-primary"
+              class="button is-warning"
               v-if="isAuthenticated"
               to="/auth/logout">
               <span class="icon">
