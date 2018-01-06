@@ -15,8 +15,7 @@
 
     <div class="navbar-menu">
 
-
-      <div class="navbar-start" v-if="user">
+      <div class="navbar-start" v-if="isAuthenticated">
         <nuxt-link class="navbar-item" to="/members">
           Members
         </nuxt-link>
@@ -29,7 +28,7 @@
         <div class="navbar-item">
           <div class="field is-grouped">
 
-            <p class="control" v-if="user">
+            <p class="control" v-if="isAuthenticated">
               <nuxt-link class="button" to="/user">
                 <span class="icon">
                   <i class="fa fa-user"></i>
@@ -58,7 +57,7 @@
   export default {
     components: {},
     computed: {
-      ...mapGetters(['user'])
+      ...mapGetters(['user', 'isAuthenticated'])
     }
   }
 </script>

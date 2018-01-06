@@ -17,6 +17,7 @@
     data () {
       return {}
     },
+    middleware: ['authenticated'],
     components: { },
     created () {
       this.$store.dispatch('BIND_TASK', this.$route.params.key)

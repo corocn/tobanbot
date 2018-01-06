@@ -98,6 +98,7 @@
         isAdding: false
       }
     },
+    middleware: ['authenticated'],
     components: {},
     created () {
       this.$store.dispatch('BIND_MEMBERS')

@@ -26,6 +26,7 @@
     data () {
       return {}
     },
+    middleware: ['authenticated'],
     components: { TaskCard, NewTaskCard },
     created () {
       this.$store.dispatch('BIND_TASKS')
