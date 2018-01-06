@@ -8,27 +8,25 @@
           </h1>
 
           <div>
-            <button
+            <nuxt-link
               class="button is-primary"
-              v-if="!authenticated"
-              @click="login()">
+              v-if="!isAuthenticated"
+              to="/auth/login">
               <span class="icon">
                 <i class="fa fa-sign-in"></i>
               </span>
               <span>Login</span>
-            </button>
+            </nuxt-link>
 
-            <button
+            <nuxt-link
               class="button is-primary"
-              v-if="authenticated"
-              @click="logout()">
+              v-if="isAuthenticated"
+              to="/auth/logout">
               <span class="icon">
                 <i class="fa fa-sign-out"></i>
               </span>
               <span>Logout</span>
-            </button>
-
-            <button class="signout button is-danger" @click="ping">Ping</button>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -37,15 +35,13 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {},
-    methods: {
-      ...mapActions(['login', 'logout', 'ping'])
-    },
+    methods: {},
     computed: {
-      ...mapGetters(['user', 'authenticated'])
+      ...mapGetters(['user', 'isAuthenticated'])
     }
   }
 </script>
