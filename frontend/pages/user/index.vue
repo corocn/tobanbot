@@ -6,9 +6,7 @@
       </h1>
 
       <br/>
-      <button class="signout button is-primary" @click="signIn">Sign In</button>
-      <br/>
-      <button class="signout button is-primary" @click="signOut">Sign Out</button>
+      <button class="signout button is-danger" @click="ping">Ping</button>
     </div>
   </section>
 </template>
@@ -18,8 +16,9 @@
 
   export default {
     components: {},
+    middleware: ['authenticated'],
     methods: {
-      ...mapActions(['signIn', 'signOut'])
+      ...mapActions(['ping'])
     },
     computed: {
       ...mapGetters(['user'])

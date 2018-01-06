@@ -57,9 +57,6 @@
 
   export default {
     components: {},
-    async created () {
-      this.$store.dispatch('RELOAD_AUTH')
-    },
     computed: {
       ...mapGetters(['user'])
     }
