@@ -5,8 +5,7 @@
         <h1>tobanbot</h1>
       </nuxt-link>
 
-
-      <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+      <div class="navbar-burger burger" v-if="isAuthenticated">
         <span></span>
         <span></span>
         <span></span>
@@ -14,7 +13,6 @@
     </div>
 
     <div class="navbar-menu">
-
       <div class="navbar-start" v-if="isAuthenticated">
         <nuxt-link class="navbar-item" to="/members">
           Members
