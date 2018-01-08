@@ -14,10 +14,10 @@
 
 ActiveRecord::Schema.define(version: 20_180_104_152_652) do
   create_table 'users', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
-    t.string 'name'
+    t.string 'auth'
     t.string 'email'
-    t.string 'password_digest'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['auth'], name: 'index_users_on_auth', unique: true
   end
 end
