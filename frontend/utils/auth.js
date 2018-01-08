@@ -37,7 +37,7 @@ export const getQueryParams = () => {
 export const setToken = ({access_token, id_token, expires_in}) => {
   window.localStorage.setItem('accessToken', access_token)
   window.localStorage.setItem('idToken', id_token)
-  window.localStorage.setItem('expiresIn', expires_in * 1000 + new Date().getTime())
+  window.localStorage.setItem('expiresAt', expires_in * 1000 + new Date().getTime())
   window.localStorage.setItem('user', JSON.stringify(jwtDecode(id_token)))
 }
 /* eslint-enable camelcase */
@@ -45,16 +45,17 @@ export const setToken = ({access_token, id_token, expires_in}) => {
 export const unsetToken = () => {
   window.localStorage.removeItem('accessToken')
   window.localStorage.removeItem('idToken')
-  window.localStorage.removeItem('expiresIn')
+  window.localStorage.removeItem('expiresAt')
   window.localStorage.removeItem('user')
 }
 
 export const isAuthenticated = () => {
-  let expiresIn = localStorage.getItem('expiresIn')
-  return new Date().getTime() < expiresIn
+  const expiresAt = localStorage.getItem('expiresAt')
+  console.log(expiresAt)
+  return new Date().getTime() < expiresAt
 }
 
-export const idToken = () => {
+export const getIdToken = () => {
   if (isAuthenticated()) {
     return localStorage.getItem('idToken')
   } else {
@@ -62,9 +63,17 @@ export const idToken = () => {
   }
 }
 
-export const accessToken = () => {
+export const getAccessToken = () => {
   if (isAuthenticated()) {
     return localStorage.getItem('accessToken')
+  } else {
+    return null
+  }
+}
+
+export const getUser = () => {
+  if (isAuthenticated()) {
+    return localStorage.getItem('user')
   } else {
     return null
   }

@@ -6,7 +6,6 @@
 import { show } from '~/utils/auth'
 
 export default {
-  // middleware: 'anonymous',
   mounted () {
     show('show-auth')
   }
