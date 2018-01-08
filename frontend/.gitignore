@@ -11,5 +11,6 @@ npm-debug.log
 dist
 
 # Environment
-auth0.config.js
+auth0.config.*
+
 

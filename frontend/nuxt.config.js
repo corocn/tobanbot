@@ -40,17 +40,20 @@ const config = {
     dir: '../public'
   },
   router: {
-    middleware: ['store-auth'],
+    middleware: ['store-auth']
   },
   axios: {},
   proxy: {}
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   config.axios = {}
   config.proxy = {
-    '/api' : 'http://localhost:3000'
+    '/api': 'http://localhost:3000'
   }
+  config.auth0 = require('./auth0.config.dev')
+} else {
+  config.auth0 = require('./auth0.config')
 }
 
 module.exports = config

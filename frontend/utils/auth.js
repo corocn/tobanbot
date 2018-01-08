@@ -1,6 +1,7 @@
 import Auth0Lock from 'auth0-lock'
 import jwtDecode from 'jwt-decode'
-import config from '~/auth0.config'
+import nuxtConfig from '~/nuxt.config'
+const config = nuxtConfig.auth0
 
 const getLock = (options) => {
   return new Auth0Lock(config.clientID, config.domain, options)
