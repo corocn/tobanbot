@@ -28,9 +28,7 @@
 
             <p class="control" v-if="isAuthenticated">
               <nuxt-link class="button" to="/user">
-                <span class="icon">
-                  <i class="fa fa-user"></i>
-                </span>
+                <img :src="user.picture"/>
               </nuxt-link>
             </p>
 
