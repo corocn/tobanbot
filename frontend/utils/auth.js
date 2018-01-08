@@ -51,7 +51,6 @@ export const unsetToken = () => {
 
 export const isAuthenticated = () => {
   const expiresAt = localStorage.getItem('expiresAt')
-  console.log(expiresAt)
   return new Date().getTime() < expiresAt
 }
 
@@ -73,7 +72,7 @@ export const getAccessToken = () => {
 
 export const getUser = () => {
   if (isAuthenticated()) {
-    return localStorage.getItem('user')
+    return JSON.parse(localStorage.getItem('user'))
   } else {
     return null
   }

@@ -39,6 +39,9 @@ const config = {
   generate: {
     dir: '../public'
   },
+  router: {
+    middleware: ['store-auth'],
+  },
   axios: {},
   proxy: {}
 }
