@@ -19,7 +19,7 @@ module Api
 
       # POST /tasks
       def create
-        @task = Task.new(task_params)
+        @task = Task.new(title: 'タイトル', description: '説明')
 
         if @task.save
           render json: @task, status: :created

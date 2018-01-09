@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import authModule from '~/store/auth'
 import membersModule from '~/store/members'
 import tasksModule from '~/store/tasks'
-import taskModule from '~/store/task'
 
 Vue.use(Vuex)
 
@@ -11,8 +10,7 @@ const store = () => new Vuex.Store({
   modules: {
     auth: authModule,
     members: membersModule,
-    tasks: tasksModule,
-    task: taskModule
+    tasks: tasksModule
   },
   getters: {},
   mutations: {},

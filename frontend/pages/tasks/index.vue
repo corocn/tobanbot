@@ -29,12 +29,12 @@
     middleware: ['authenticated'],
     components: { TaskCard, NewTaskCard },
     created () {
-      this.$store.dispatch('BIND_TASKS')
+      this.FETCH_TASKS()
     },
     methods: {
-      ...mapActions(['callAuth']),
+      ...mapActions(['FETCH_TASKS']),
       createTask () {
-        this.$store.dispatch('CREATE_TASK', { title: 'サンプル', description: '説明' })
+        this.$store.dispatch('CREATE_TASK')
       }
     },
     computed: {

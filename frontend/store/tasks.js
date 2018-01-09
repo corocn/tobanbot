@@ -1,21 +1,33 @@
 export default {
   state: {
-    list: []
+    lists: []
   },
   getters: {
     tasks: state => {
-      return state.list.map((p) => { return p })
+      return state.lists.map((v) => { return v })
+    }
+  },
+  mutations: {
+    FETCH_TASKS (state, payload) {
+      state.lists = payload
     }
   },
   actions: {
-    // BIND_TASKS: firebaseAction(({ bindFirebaseRef }) => {
-    //   bindFirebaseRef('list', ref)
-    // }),
-    // CREATE_TASK: firebaseAction((ctx, { title, description }) => {
-    //   ref.push({ title, description })
-    // }),
-    // DELETE_TASK: firebaseAction((ctx, key) => {
-    //   ref.child(key).remove()
-    // })
+    async FETCH_TASKS ({commit}) {
+      const tasks = await this.$axios.$get('/v1/tasks')
+      commit('FETCH_TASKS', tasks)
+    },
+    async CREATE_TASK ({dispatch}) {
+      await this.$axios.$post('/v1/tasks')
+      dispatch('FETCH_TASKS')
+    },
+    async DELETE_TASK ({dispatch}, {id}) {
+      await this.$axios.$delete('/v1/tasks/' + id)
+      dispatch('FETCH_MEMBERS')
+    }
+    // async UPDATE_TASK ({dispatch}, task) {
+    //   await this.$axios.$put('/v1/members/' + member.id, task)
+    //   dispatch('FETCH_MEMBERS')
+    // }
   }
 }
