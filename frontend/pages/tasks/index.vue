@@ -32,13 +32,17 @@
       this.FETCH_TASKS()
     },
     methods: {
-      ...mapActions(['FETCH_TASKS']),
+      ...mapActions([
+        'FETCH_TASKS',
+        'CREATE_TASK',
+        'DELETE_TASK'
+      ]),
       createTask () {
-        this.$store.dispatch('CREATE_TASK')
+        this.CREATE_TASK()
       },
       deleteTask (task) {
         if (confirm('Do you really want to delete?')) {
-          this.$store.dispatch('DELETE_TASK', task)
+          this.DELETE_TASK(task)
         }
       }
     },

@@ -104,18 +104,23 @@
       this.FETCH_MEMBERS()
     },
     methods: {
-      ...mapActions(['FETCH_MEMBERS']),
+      ...mapActions([
+        'FETCH_MEMBERS',
+        'CREATE_MEMBER',
+        'DELETE_MEMBER',
+        'UPDATE_MEMBER'
+      ]),
       createMember () {
-        this.$store.dispatch('CREATE_MEMBER', this.adding)
+        this.CREATE_MEMBER(this.adding)
         this.adding = { name: '', email: '' }
       },
       deleteMember (member) {
         if (confirm('Do you really want to delete?')) {
-          this.$store.dispatch('DELETE_MEMBER', member)
+          this.DELETE_MEMBER(member)
         }
       },
       updateMember (member) {
-        this.$store.dispatch('UPDATE_MEMBER', member)
+        this.UPDATE_MEMBER(member)
         this.editing = false
       },
       toggleAddForm () {
