@@ -23,7 +23,7 @@ export default {
     },
     async DELETE_TASK ({dispatch}, {id}) {
       await this.$axios.$delete('/v1/tasks/' + id)
-      dispatch('FETCH_MEMBERS')
+      dispatch('FETCH_TASKS')
     }
     // async UPDATE_TASK ({dispatch}, task) {
     //   await this.$axios.$put('/v1/members/' + member.id, task)

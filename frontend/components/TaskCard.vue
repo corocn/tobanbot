@@ -2,9 +2,9 @@
   <div class="task-card card">
     <header class="card-header">
       <p class="card-header-title">
-        <nuxt-link :to="`/tasks/${task['.key']}`">{{ task.title }}</nuxt-link>
+        <nuxt-link :to="`/tasks/${task.id}`">{{ task.id }} : {{ task.title }}</nuxt-link>
       </p>
-      <a class="delete" @click="deleteTask(task['.key'])"></a>
+      <a class="delete" @click="onDelete(task)"></a>
     </header>
     <div class="card-content">
       <div class="content">
@@ -18,14 +18,8 @@
 
 <script>
   export default {
-    props: ['task'],
-    methods: {
-      deleteTask (key) {
-        if (confirm('Do you really want to delete?')) {
-          this.$store.dispatch('DELETE_TASK', key)
-        }
-      }
-    }
+    props: ['task', 'onDelete'],
+    methods: {}
   }
 </script>
 

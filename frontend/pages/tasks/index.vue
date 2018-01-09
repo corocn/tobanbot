@@ -7,7 +7,7 @@
 
       <div class="columns is-multiline">
         <div class="column is-one-third" v-for="task in tasks">
-          <task-card :task="task"></task-card>
+          <task-card :task="task" :onDelete="deleteTask"></task-card>
         </div>
         <div class="column is-one-third">
           <new-task-card></new-task-card>
@@ -35,6 +35,11 @@
       ...mapActions(['FETCH_TASKS']),
       createTask () {
         this.$store.dispatch('CREATE_TASK')
+      },
+      deleteTask (task) {
+        if (confirm('Do you really want to delete?')) {
+          this.$store.dispatch('DELETE_TASK', task)
+        }
       }
     },
     computed: {
