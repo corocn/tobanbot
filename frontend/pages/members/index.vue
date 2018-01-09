@@ -39,7 +39,7 @@
             </td>
             <td>
               <button class="button is-danger"
-                      @click="removeMember(member['.key'])">
+                      @click="deleteMember(member)">
                 <i class="fa fa-trash"></i>
               </button>
             </td>
@@ -75,7 +75,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link" @click="addMember">
+            <button class="button is-link" @click="createMember()">
               Submit</button>
           </div>
         </div>
@@ -90,10 +90,7 @@
   export default {
     data () {
       return {
-        adding: {
-          name: '',
-          email: ''
-        },
+        adding: { name: '', email: '' },
         editing: {},
         isAdding: false
       }
@@ -101,29 +98,28 @@
     middleware: ['authenticated'],
     components: {},
     created () {
-      this.$store.dispatch('BIND_MEMBERS')
+      this.FETCH_MEMBERS()
     },
     methods: {
-      ...mapActions(['callAuth']),
-      toggleAddForm () {
-        this.isAdding = !this.isAdding
+      ...mapActions(['FETCH_MEMBERS']),
+      createMember () {
+        this.$store.dispatch('CREATE_MEMBER', this.adding)
+        this.adding = { name: '', email: '' }
       },
-      addMember () {
-        this.$store.dispatch('CREATE_MEMBER', { name: this.adding.name, email: this.adding.email })
-        this.adding.name = ''
-        this.adding.email = ''
-      },
-      removeMember (key) {
+      deleteMember (member) {
         if (confirm('Do you really want to delete?')) {
-          this.$store.dispatch('DELETE_MEMBER', key)
+          this.$store.dispatch('DELETE_MEMBER', member)
         }
-      },
-      toggleEdit (member) {
-        this.editing = Object.assign({}, member)
       },
       updateMember (member) {
         this.$store.dispatch('UPDATE_MEMBER', member)
         this.editing = false
+      },
+      toggleAddForm () {
+        this.isAdding = !this.isAdding
+      },
+      toggleEdit (member) {
+        this.editing = Object.assign({}, member)
       }
     },
     computed: {
@@ -132,9 +128,9 @@
         return this.members.map((member) => {
           member = Object.assign({}, member)
           member.isEditing = false
-          if (this.editing && member['.key'] === this.editing['.key']) {
-            member.isEditing = true
-          }
+          // if (this.editing && member['.key'] === this.editing['.key']) {
+          //   member.isEditing = true
+          // }
           return member
         })
       }
