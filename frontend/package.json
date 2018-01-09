@@ -19,7 +19,7 @@
     "auth0-js": "^9.0.2",
     "auth0-lock": "^11.0.1",
     "jwt-decode": "^2.2.0",
-    "nuxt": "^1.0.0-rc11",
+    "nuxt": "^1.0.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
