@@ -9,6 +9,7 @@
         <table class="table">
           <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Edit</th>
@@ -17,6 +18,8 @@
           </thead>
           <tbody>
           <tr v-for="member in editableMembers">
+            <td>{{ member.id }}</td>
+
             <td v-if="member.isEditing">
               <input class="input" type="text" v-model="editing.name">
             </td>
