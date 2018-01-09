@@ -2,10 +2,7 @@
 
 module Api
   module V1
-    class UserController < ApplicationController
-      include Knock::Authenticable
-      before_action :authenticate_user
-
+    class UserController < AuthenticatedController
       def index
         @user = {
           id: current_user.id,
