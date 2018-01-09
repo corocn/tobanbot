@@ -91,7 +91,7 @@
     data () {
       return {
         adding: { name: '', email: '' },
-        editing: {},
+        editing: false,
         isAdding: false
       }
     },
@@ -119,7 +119,7 @@
         this.isAdding = !this.isAdding
       },
       toggleEdit (member) {
-        this.editing = Object.assign({}, member)
+        this.editing = member
       }
     },
     computed: {
@@ -128,9 +128,9 @@
         return this.members.map((member) => {
           member = Object.assign({}, member)
           member.isEditing = false
-          // if (this.editing && member['.key'] === this.editing['.key']) {
-          //   member.isEditing = true
-          // }
+          if (this.editing && member.id === this.editing.id) {
+            member.isEditing = true
+          }
           return member
         })
       }

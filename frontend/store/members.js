@@ -17,22 +17,17 @@ export default {
       const members = await this.$axios.$get('/v1/members')
       commit('FETCH_MEMBERS', members)
     },
-    async CREATE_MEMBER ({dispatch}, { name, email }) {
+    async CREATE_MEMBER ({dispatch}, {name, email}) {
       await this.$axios.$post('/v1/members', {name, email})
-      await dispatch('FETCH_MEMBERS')
+      dispatch('FETCH_MEMBERS')
     },
-    async DELETE_MEMBER ({dispatch}, { id }) {
+    async DELETE_MEMBER ({dispatch}, {id}) {
       await this.$axios.$delete('/v1/members/' + id)
-      await dispatch('FETCH_MEMBERS')
+      dispatch('FETCH_MEMBERS')
+    },
+    async UPDATE_MEMBER ({dispatch}, member) {
+      await this.$axios.$put('/v1/members/' + member.id, member)
+      dispatch('FETCH_MEMBERS')
     }
-
-    // UPDATE_MEMBER: firebaseAction((ctx, member) => {
-    //   let key = member['.key']
-    //   ref.child(key).update({
-    //     name: member.name,
-    //     email: member.email
-    //   })
-    // }),
-
   }
 }
