@@ -5,7 +5,7 @@ module Api
     class PingController < ApplicationController
       def index
         render json: {
-            message: 'pong'
+          message: 'pong'
         }
       end
     end

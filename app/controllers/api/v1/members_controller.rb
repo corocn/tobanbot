@@ -3,7 +3,7 @@
 module Api
   module V1
     class MembersController < ApplicationController
-      before_action :set_member, only: [:show, :update, :destroy]
+      before_action :set_member, only: %i[show update destroy]
 
       # GET /members
       def index
@@ -43,6 +43,7 @@ module Api
       end
 
       private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_member
         @member = Member.find(params[:id])
