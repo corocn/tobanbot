@@ -1,0 +1,10 @@
+AllCops:
+  DisplayCopNames: true
+  Include:
+    - '**/*.rake'
+  Exclude:
+    - 'bin/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
